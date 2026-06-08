@@ -31,7 +31,7 @@ describe('App Component Integration', () => {
     const button = await screen.findByRole('button', { name: /Draw Card/i });
     expect(button).toBeInTheDocument();
     
-    expect(screen.getByText('Snap Game')).toBeInTheDocument();
+    expect(screen.getByText('SNAP!')).toBeInTheDocument();
   });
 
   it('should display drawn card after clicking draw', async () => {

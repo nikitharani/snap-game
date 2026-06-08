@@ -23,7 +23,7 @@ export function GameControls({
         size="large"
         onClick={onDraw}
         disabled={isLoading}
-        sx={{ minWidth: 200, py: 1.5, fontSize: '1.2rem', borderRadius: 4 }}
+        sx={{ minWidth: 200, height: 56, fontSize: '1.2rem', borderRadius: 4 }}
       >
         {isLoading ? <CircularProgress size={28} color="inherit" /> : 'Draw Card'}
       </Button>
@@ -31,11 +31,18 @@ export function GameControls({
         <Typography variant="body1" color="text.secondary">
           Cards Remaining: {cardsRemaining}
         </Typography>
-        {cardsRemaining < 52 && cardsRemaining > 0 && (
-          <Typography variant="caption" color="text.disabled" sx={{ display: 'block', mt: 1 }}>
-            Match Probability - Value: {(nextValueProbability * 100).toFixed(1)}% | Suit: {(nextSuitProbability * 100).toFixed(1)}%
-          </Typography>
-        )}
+        <Typography
+          variant="caption"
+          color="text.disabled"
+          sx={{
+            display: 'block',
+            mt: 1,
+            visibility: cardsRemaining < 52 && cardsRemaining > 0 ? 'visible' : 'hidden',
+            height: 20
+          }}
+        >
+          Match Probability - Value: {(nextValueProbability * 100).toFixed(1)}% | Suit: {(nextSuitProbability * 100).toFixed(1)}%
+        </Typography>
       </Box>
     </Box>
   );

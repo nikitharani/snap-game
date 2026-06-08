@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Container, Typography, Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { Container, Typography, Box, CssBaseline, ThemeProvider, createTheme, Paper } from '@mui/material';
 import { useSnapGame } from './hooks/useSnapGame';
 import { CardDisplay } from './components/CardDisplay';
 import { GameControls } from './components/GameControls';
@@ -7,20 +7,24 @@ import { GameStats } from './components/GameStats';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     primary: {
-      main: '#90caf9',
+      main: '#007aff'
     },
     secondary: {
-      main: '#f48fb1',
+      main: '#ff2d55'
     },
     background: {
-      default: '#121212',
-      paper: '#1e1e1e',
+      default: '#f8fafc',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#0f172a',
+      secondary: '#475569',
     },
   },
   typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Outfit", "Inter", "Roboto", "Helvetica", "Arial", sans-serif',
   },
 });
 
@@ -28,6 +32,7 @@ const theme = createTheme({
 let audioCtx: AudioContext | null = null;
 
 function App() {
+
   const {
     currentCard,
     previousCard,
@@ -101,64 +106,142 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="sm" sx={{ py: 2, minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <Box sx={{ width: '100%', textAlign: 'center', mb: 2 }}>
-          <Typography variant="h3" component="h1" fontWeight="bold" gutterBottom sx={{
-            background: 'linear-gradient(45deg, #90caf9 30%, #f48fb1 90%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            mb: 1
-          }}>
-            Snap Game
+      <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', bgcolor: 'background.default' }}>
+        {/* Global Page Header Bar */}
+        <Box
+          component="header"
+          sx={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            px: 4,
+            py: 2,
+            borderBottom: '1px solid #e2e8f0',
+            background: '#ffffff',
+            position: 'sticky',
+            top: 0,
+            zIndex: 1100,
+          }}
+        >
+          {/* Title SNAP! */}
+          <Typography
+            variant="h5"
+            fontWeight="900"
+            sx={{
+              letterSpacing: '0.15em',
+              fontFamily: '"Outfit", "Inter", sans-serif',
+              background: 'linear-gradient(45deg, #007aff 30%, #ff2d55 90%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            SNAP!
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            Draw cards and watch for matches!
-          </Typography>
-        </Box>
 
-        {error && (
-          <Typography color="error" sx={{ mb: 2 }}>
-            {error.message || 'An error occurred'}
-          </Typography>
-        )}
-
-        {/* Global Snap Message Placed Above Cards */}
-        <Box sx={{ height: 45, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          {snapMessage.text && (
-            <Typography
-              variant="h4"
-              fontWeight="bold"
-              color={snapMessage.type === 'value' ? 'primary.main' : snapMessage.type === 'suit' ? 'secondary.main' : 'error.main'}
-              sx={{ animation: 'pop 0.3s ease-out', '@keyframes pop': { '0%': { transform: 'scale(0.8)', opacity: 0 }, '100%': { transform: 'scale(1)', opacity: 1 } } }}
-            >
-              {snapMessage.text}
-            </Typography>
-          )}
-        </Box>
-
-        <CardDisplay
-          currentCard={currentCard}
-          previousCard={previousCard}
-        />
-
-        {!isGameOver ? (
-          <GameControls
-            onDraw={drawCard}
-            isLoading={isLoading}
-            cardsRemaining={cardsRemaining}
-            nextValueProbability={nextValueProbability}
-            nextSuitProbability={nextSuitProbability}
-          />
-        ) : (
-          <Box sx={{ width: '100%', mt: 1 }}>
-            <GameStats
-              valueMatches={valueMatches}
-              suitMatches={suitMatches}
-              onRestart={restartGame}
+          {/* Mock OS Window dots (Outlined Circles) */}
+          <Box sx={{ display: 'flex', gap: 1.5 }}>
+            <Box
+              sx={{
+                width: 12,
+                height: 12,
+                borderRadius: '50%',
+                border: '1.5px solid #cbd5e1',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  backgroundColor: '#f1f5f9',
+                  borderColor: '#94a3b8',
+                },
+              }}
+            />
+            <Box
+              sx={{
+                width: 12,
+                height: 12,
+                borderRadius: '50%',
+                border: '1.5px solid #cbd5e1',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  backgroundColor: '#f1f5f9',
+                  borderColor: '#94a3b8',
+                },
+              }}
+            />
+            <Box
+              sx={{
+                width: 12,
+                height: 12,
+                borderRadius: '50%',
+                border: '1.5px solid #cbd5e1',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  backgroundColor: '#f1f5f9',
+                  borderColor: '#94a3b8',
+                },
+              }}
             />
           </Box>
-        )}
-      </Container>
+        </Box>
+        {/* Main Content Area */}
+        <Container
+          maxWidth="sm"
+          sx={{
+            flex: 1,
+            py: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {error && (
+            <Typography color="error" sx={{ mb: 2 }}>
+              {error.message || 'An error occurred'}
+            </Typography>
+          )}
+          {/* Global Snap Message / Game Status Placed Above Cards */}
+          <Box sx={{ height: 45, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
+            {snapMessage.text ? (
+              <Typography
+                variant="h4"
+                fontWeight="bold"
+                color={snapMessage.type === 'value' ? 'primary.main' : snapMessage.type === 'suit' ? 'secondary.main' : 'error.main'}
+                sx={{ animation: 'pop 0.3s ease-out', '@keyframes pop': { '0%': { transform: 'scale(0.8)', opacity: 0 }, '100%': { transform: 'scale(1)', opacity: 1 } } }}
+              >
+                {snapMessage.text}
+              </Typography>
+            ) : (
+              <Typography variant="body1" color="text.secondary">
+                Draw cards and watch for matches!
+              </Typography>
+            )}
+          </Box>
+          <CardDisplay
+            currentCard={currentCard}
+            previousCard={previousCard}
+          />
+          {!isGameOver ? (
+            <GameControls
+              onDraw={drawCard}
+              isLoading={isLoading}
+              cardsRemaining={cardsRemaining}
+              nextValueProbability={nextValueProbability}
+              nextSuitProbability={nextSuitProbability}
+            />
+          ) : (
+            <Box sx={{ width: '100%', mt: 1 }}>
+              <GameStats
+                valueMatches={valueMatches}
+                suitMatches={suitMatches}
+                onRestart={restartGame}
+              />
+            </Box>
+          )}
+        </Container>
+      </Box>
     </ThemeProvider>
   );
 }
