@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { deckService, Card } from '../services/deckService';
+import { deckService } from '../services/deckService';
+import { Card } from '../services/deckService.types';
 
 export interface SnapMessage {
   text: 'SNAP VALUE!' | 'SNAP SUIT!' | 'SNAP BOTH!' | null;
@@ -58,10 +59,10 @@ export function useSnapGame() {
       setSnapMessage({ text: null, type: null });
       return;
     }
-    
+
     const curr = drawnCards[drawnCards.length - 1];
     const prev = drawnCards[drawnCards.length - 2];
-    
+
     const valueSnap = curr.value === prev.value;
     const suitSnap = curr.suit === prev.suit;
 
@@ -80,6 +81,7 @@ export function useSnapGame() {
     }
   }, [drawnCards]);
 
+  // calculated values based on the drawnCards array 
   const isGameOver = drawnCards.length === 52;
   const currentCard = drawnCards[drawnCards.length - 1] || null;
   const previousCard = drawnCards[drawnCards.length - 2] || null;

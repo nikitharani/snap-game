@@ -55,10 +55,10 @@ function App() {
 
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-      
+
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-      
+
       if (type === 'draw') {
         osc.type = 'sine';
         osc.frequency.setValueAtTime(400, audioCtx.currentTime);
@@ -83,7 +83,7 @@ function App() {
   };
 
   const prevRemainingRef = useRef(cardsRemaining);
-  
+
   useEffect(() => {
     // Only play draw sound if cards decreased and it's not the first render
     if (cardsRemaining < prevRemainingRef.current) {
@@ -123,7 +123,7 @@ function App() {
         )}
 
         {/* Global Snap Message Placed Above Cards */}
-        <Box sx={{ height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ height: 45, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {snapMessage.text && (
             <Typography
               variant="h4"
@@ -136,9 +136,9 @@ function App() {
           )}
         </Box>
 
-        <CardDisplay 
-          currentCard={currentCard} 
-          previousCard={previousCard} 
+        <CardDisplay
+          currentCard={currentCard}
+          previousCard={previousCard}
         />
 
         {!isGameOver ? (
@@ -146,12 +146,11 @@ function App() {
             onDraw={drawCard}
             isLoading={isLoading}
             cardsRemaining={cardsRemaining}
-            snapMessage={snapMessage}
             nextValueProbability={nextValueProbability}
             nextSuitProbability={nextSuitProbability}
           />
         ) : (
-          <Box sx={{ width: '100%', mt: 2 }}>
+          <Box sx={{ width: '100%', mt: 1 }}>
             <GameStats
               valueMatches={valueMatches}
               suitMatches={suitMatches}

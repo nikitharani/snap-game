@@ -1,26 +1,23 @@
 import { Box, Button, Typography, CircularProgress } from '@mui/material';
-import { SnapMessage } from '../hooks/useSnapGame';
+import { GameControlsProps } from './GameControls.types';
 
-interface GameControlsProps {
-  onDraw: () => void;
-  isLoading: boolean;
-  cardsRemaining: number;
-  snapMessage: SnapMessage;
-  nextValueProbability: number;
-  nextSuitProbability: number;
-}
-
+/**
+ * GameControls component for displaying game controls and information
+ * @param onDraw - Callback function for drawing a card
+ * @param isLoading - Whether the game is loading
+ * @param cardsRemaining - The number of cards remaining in the deck
+ * @param nextValueProbability - The probability of the next card being a value match
+ * @param nextSuitProbability - The probability of the next card being a suit match
+ */
 export function GameControls({
   onDraw,
   isLoading,
   cardsRemaining,
-  snapMessage,
   nextValueProbability,
   nextSuitProbability
 }: GameControlsProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
-
       <Button
         variant="contained"
         size="large"
@@ -30,7 +27,6 @@ export function GameControls({
       >
         {isLoading ? <CircularProgress size={28} color="inherit" /> : 'Draw Card'}
       </Button>
-
       <Box sx={{ textAlign: 'center' }}>
         <Typography variant="body1" color="text.secondary">
           Cards Remaining: {cardsRemaining}
