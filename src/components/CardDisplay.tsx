@@ -36,7 +36,7 @@ export function CardDisplay({ currentCard, previousCard }: CardDisplayProps) {
                 overflow: 'hidden',
                 transition: 'all 0.3s ease-in-out',
                 transform: isCurrent && card ? 'scale(1.05)' : 'scale(1)',
-                boxShadow: isCurrent && card 
+                boxShadow: isCurrent && card
                   ? '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
                   : undefined
               }}

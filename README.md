@@ -14,14 +14,18 @@ A modern, responsive, and feature-rich single-page application (SPA) implementat
    - **Value Match**: Occurs when the drawn card has the same rank (e.g., King, 5, Ace) as the previous card. Displays a `SNAP VALUE!` alert.
    - **Suit Match**: Occurs when the drawn card has the same suit (Hearts, Spades, Diamonds, Clubs) as the previous card. Displays a `SNAP SUIT!` alert.
    - **Both Match**: Occurs when both suit and rank match (possible if multiple decks were used, or special rules apply). Displays a `SNAP BOTH!` alert.
-4. **Intuitive Final Draw**: To address a common UX bug found in standard game implementations where the 51st card vanishes upon drawing the 52nd card, this game keeps both the 51st and 52nd cards visible side-by-side. This ensures the player can visually confirm any final match before the Game Over screen overlays.
-5. **Game Over**: Once all 52 cards are drawn, the game finishes, presenting a summary of total **Value Matches** and **Suit Matches** along with a **Play Again** restart button.
+4. **Game Over**: Once all 52 cards are drawn, the game finishes, presenting a summary of total **Value Matches** and **Suit Matches** along with a **Play Again** restart button.
 
 ---
 
 ## ✨ Features
 
-- **Premium Dark Mode UI**: Styled from the ground up using a modern dark palette, harmonious color gradients, custom card elevation/hover effects, and responsive layout structures.
+- **Premium Light Mode UI (Wireframe-Matched)**: Styled from the ground up to match the wireframe exactly. Uses a clean light slate palette (`#f8fafc`), pure white containers, high-contrast Slate text colors, and custom card elevation/hover effects.
+- **Global Window Header**: Features a sticky, full-width mock browser/application window header bar at the top of the viewport. It displays the **"SNAP!"** logo with a beautiful blue-to-pink gradient on the left, and three hollow outlined circles representing system controls on the right.
+- **Zero Layout Shifts (Stable Animations)**: Implements layout-shift prevention throughout the game:
+  - Card transitions use a fixed-dimension wrapper so the page content remains static and stable during zoom updates.
+  - The draw button has a fixed height, preventing shifts when transitioning to the loading spinner.
+  - Match probabilities use CSS `visibility` logic to pre-reserve height space before the first card is drawn.
 - **Dynamic Probabilities**: Shows the real-time probability (as a percentage) of getting a value match or a suit match on the next draw. These statistics adapt dynamically based on the remaining contents of the deck.
 - **Synthesized Audio Effects**: Uses the native **Web Audio API** to generate sound effects dynamically (draw sweep, match snap) directly in the browser without requiring heavy audio asset files. Uses a singleton context to bypass web browser audio-thread blocks.
 - **Smooth Micro-Animations**: Card transitions are animated using MUI's `Zoom` and `Fade` helpers, and match messages pop dynamically to capture user attention.
@@ -58,7 +62,9 @@ src/
 │   └── GameStats.tsx        # Post-game statistics panel and restart trigger
 ├── App.tsx                  # Root layout, theme provider, and singleton Web Audio player
 ├── App.test.tsx             # Integration tests for the full user-interaction flow
-└── main.tsx                 # Entrypoint
+├── main.tsx                 # Entrypoint
+└── test/
+    └── setup.ts             # Testing library matchers registration for Vitest
 ```
 
 ---
