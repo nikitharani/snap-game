@@ -18,22 +18,6 @@ A modern, responsive, and feature-rich single-page application (SPA) implementat
 
 ---
 
-## ✨ Features
-
-- **Premium Light Mode UI (Wireframe-Matched)**: Styled from the ground up to match the wireframe exactly. Uses a clean light slate palette (`#f8fafc`), pure white containers, high-contrast Slate text colors, and custom card elevation/hover effects.
-- **Global Window Header**: Features a sticky, full-width mock browser/application window header bar at the top of the viewport. It displays the **"SNAP!"** logo with a beautiful blue-to-pink gradient on the left, and three hollow outlined circles representing system controls on the right.
-- **Zero Layout Shifts (Stable Animations)**: Implements layout-shift prevention throughout the game:
-  - Card transitions use a fixed-dimension wrapper so the page content remains static and stable during zoom updates.
-  - The draw button has a fixed height, preventing shifts when transitioning to the loading spinner.
-  - Match probabilities use CSS `visibility` logic to pre-reserve height space before the first card is drawn.
-- **Dynamic Probabilities**: Shows the real-time probability (as a percentage) of getting a value match or a suit match on the next draw. These statistics adapt dynamically based on the remaining contents of the deck.
-- **Synthesized Audio Effects**: Uses the native **Web Audio API** to generate sound effects dynamically (draw sweep, match snap) directly in the browser without requiring heavy audio asset files. Uses a singleton context to bypass web browser audio-thread blocks.
-- **Smooth Micro-Animations**: Card transitions are animated using MUI's `Zoom` and `Fade` helpers, and match messages pop dynamically to capture user attention.
-- **No Third-Party State Overhead**: Avoids complex state libraries (like Redux or React Query) to keep code readable, lightweight, and performant for assessment.
-- **100% Type-Safe**: Built fully with TypeScript, ensuring clear type interfaces for cards, API responses, hooks, and component properties.
-
----
-
 ## 🛠️ Technology Stack
 
 - **Framework**: React 18
@@ -91,18 +75,6 @@ To start the local Vite development server with Hot Module Replacement (HMR):
 npm run dev
 ```
 The application will run locally (typically at `http://localhost:5173`).
-
-### Building for Production
-
-To compile TypeScript and compile code into production-ready assets:
-```bash
-npm run build
-```
-
-To preview the built production application locally:
-```bash
-npm run preview
-```
 
 ---
 
