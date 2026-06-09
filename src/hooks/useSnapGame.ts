@@ -1,28 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { deckService } from '../services/deckService';
 import { Card } from '../services/deckService.types';
-
-/**
- * Interface representing the current snap state message and type
- */
-export type SnapMessage = {
-  /**
-   * The text message displayed to the user (e.g. "SNAP VALUE!")
-   */
-  text: 'SNAP VALUE!' | 'SNAP SUIT!' | 'SNAP BOTH!' | null;
-  /**
-   * The classification type of the snap match
-   */
-  type: 'value' | 'suit' | 'both' | null;
-};
+import { SnapMessage } from './useSnapGame.types';
 
 /**
  * Custom React hook that manages the card snap game state and logic.
  * Handles deck initialization, card drawing, snap detection, and next-draw probabilities.
  */
 export function useSnapGame() {
-
-  // Game State
 
   // Unique ID of the deck retrieved from the Deck of Cards API
   const [deckId, setDeckId] = useState<string | null>(null);
@@ -45,7 +30,6 @@ export function useSnapGame() {
   // Error object if any API requests fail
   const [error, setError] = useState<Error | null>(null);
 
-  //  Actions
 
   // Initializes or restarts the game by creating a new shuffled deck.
   // Resets all game statistics and drawn cards list.
@@ -71,10 +55,8 @@ export function useSnapGame() {
     initDeck();
   }, [initDeck]);
 
-  /**
-   * Draws a single card from the active deck and appends it to the drawnCards list.
-   * Prevents execution if game is loading, deck is missing, or all cards are drawn.
-   */
+  // Draws a single card from the active deck and appends it to the drawnCards list.
+  // Prevents execution if game is loading, deck is missing, or all cards are drawn.
   const drawCard = useCallback(async () => {
     if (!deckId || drawnCards.length >= 52 || isLoading) return;
 
@@ -91,8 +73,6 @@ export function useSnapGame() {
       setIsLoading(false);
     }
   }, [deckId, drawnCards.length, isLoading]);
-
-  // Snap Match Logic
 
   // Triggers snap checking whenever a new card is drawn
   useEffect(() => {
@@ -124,24 +104,22 @@ export function useSnapGame() {
     }
   }, [drawnCards]);
 
-  // Derived State Calculations
-
   // Game is finished once all 52 cards are drawn
   const isGameOver = drawnCards.length === 52;
 
   // The most recently drawn card (active card)
   const currentCard = drawnCards[drawnCards.length - 1] || null;
 
-  /** The card drawn immediately before the current card */
+  // The card drawn immediately before the current card
   const previousCard = drawnCards[drawnCards.length - 2] || null;
 
-  /** Remaining count of cards in the deck */
+  // Remaining count of cards in the deck
   const cardsRemaining = 52 - drawnCards.length;
 
-  /** Probability that the next drawn card will match the current card's value */
+  // Probability that the next drawn card will match the current card's value
   let nextValueProbability = 0;
 
-  /** Probability that the next drawn card will match the current card's suit */
+  // Probability that the next drawn card will match the current card's suit
   let nextSuitProbability = 0;
 
   // Compute probabilities based on the cards remaining in the deck

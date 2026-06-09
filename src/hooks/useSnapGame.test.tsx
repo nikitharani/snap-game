@@ -13,10 +13,11 @@ vi.mock('../services/deckService', () => {
   };
 });
 
+//  Test cases for the useSnapGame hook.
 describe('useSnapGame Hook', () => {
   beforeEach(() => {
     vi.resetAllMocks();
-    
+
     // Default success mock for creating a deck
     (deckService.createDeck as any).mockResolvedValue({
       success: true,
@@ -28,7 +29,7 @@ describe('useSnapGame Hook', () => {
 
   it('should initialize with correct default values', async () => {
     const { result } = renderHook(() => useSnapGame());
-    
+
     // Allow initial initDeck to resolve
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 0));
@@ -61,7 +62,7 @@ describe('useSnapGame Hook', () => {
     });
 
     const { result } = renderHook(() => useSnapGame());
-    
+
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 0));
     });
@@ -81,7 +82,7 @@ describe('useSnapGame Hook', () => {
     const mockCard2 = { code: 'KS', value: 'KING', suit: 'SPADES', image: '', images: { png: '', svg: '' } };
 
     const { result } = renderHook(() => useSnapGame());
-    
+
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 0));
     });
@@ -118,7 +119,7 @@ describe('useSnapGame Hook', () => {
     const mockCard2 = { code: '5H', value: '5', suit: 'HEARTS', image: '', images: { png: '', svg: '' } };
 
     const { result } = renderHook(() => useSnapGame());
-    
+
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 0));
     });
@@ -154,7 +155,7 @@ describe('useSnapGame Hook', () => {
     const mockCard = { code: 'KH', value: 'KING', suit: 'HEARTS', image: '', images: { png: '', svg: '' } };
 
     const { result } = renderHook(() => useSnapGame());
-    
+
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 0));
     });

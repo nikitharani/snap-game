@@ -1,4 +1,4 @@
-import { SnapMessage } from "../hooks/useSnapGame";
+import { SnapMessage } from "../hooks/useSnapGame.types";
 
 /**
  * Type for the GameControls component properties
